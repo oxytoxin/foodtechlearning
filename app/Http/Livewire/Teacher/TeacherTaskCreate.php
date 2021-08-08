@@ -60,6 +60,7 @@ class TeacherTaskCreate extends Component
             }
             $task = Task::create([
                 'name' => $this->name,
+                'task_type_id' => $this->task_type_id,
                 'instructions' => $this->instructions,
                 'course_id' => $this->course->id,
                 'questions' => $questions,
