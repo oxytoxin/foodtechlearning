@@ -17,12 +17,14 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(TaskTypeSeeder::class);
-        $this->call(DummyUsersSeeder::class);
-        $this->call(DummyCoursesSeeder::class);
-        $this->call(DummyEnrolStudents::class);
-        $this->call(LessonsTableSeeder::class);
-        $this->call(MediaTableSeeder::class);
-        $this->call(TasksTableSeeder::class);
-        $this->call(SubmissionsTableSeeder::class);
+        if(\App::environment('local')){
+            $this->call(DummyUsersSeeder::class);
+            $this->call(DummyCoursesSeeder::class);
+            $this->call(DummyEnrolStudents::class);
+            $this->call(LessonsTableSeeder::class);
+            $this->call(MediaTableSeeder::class);
+            $this->call(TasksTableSeeder::class);
+            $this->call(SubmissionsTableSeeder::class);
+        }
     }
 }
