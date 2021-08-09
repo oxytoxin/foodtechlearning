@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth','role:student'])->prefix('student')->name('student.')->group(function (){
-    Route::get('dashboard',\App\Http\Livewire\Student\StudentDashboard::class)->name('dashboard');
+//    Route::get('dashboard',\App\Http\Livewire\Student\StudentDashboard::class)->name('dashboard');
     Route::get('courses',\App\Http\Livewire\Student\StudentCoursesIndex::class)->name('courses');
     Route::get('gradebook',\App\Http\Livewire\Student\StudentGradebook::class)->name('gradebook');
     Route::get('course/{course}',\App\Http\Livewire\Student\StudentCourseView::class)->name('course.lessons');
@@ -69,7 +69,7 @@ Route::middleware(['auth','role:student'])->prefix('student')->name('student.')-
 });
 
 Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function(){
-    Route::get('dashboard',\App\Http\Livewire\Teacher\TeacherDashboard::class)->name('dashboard');
+//    Route::get('dashboard',\App\Http\Livewire\Teacher\TeacherDashboard::class)->name('dashboard');
     Route::get('courses',\App\Http\Livewire\Teacher\TeacherCoursesIndex::class)->name('courses');
     Route::get('deleted-courses',\App\Http\Livewire\Teacher\TeacherDeletedCourses::class)->name('courses.deleted');
     Route::get('course/{course}/lessons/create',\App\Http\Livewire\Teacher\TeacherLessonCreate::class)->name('lessons.create');

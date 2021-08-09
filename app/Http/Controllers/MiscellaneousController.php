@@ -12,10 +12,10 @@ class MiscellaneousController extends Controller
     {
         switch (auth()->user()?->default_role?->name){
             case 'student':
-                return redirect()->route('student.dashboard');
+                return redirect()->route('student.courses');
                 break;
             case 'teacher':
-                return redirect()->route('teacher.dashboard');
+                return redirect()->route('teacher.courses');
                 break;
         }
         abort(404);
