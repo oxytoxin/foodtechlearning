@@ -63,4 +63,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(Course::class, 'course_user');
     }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
 }
