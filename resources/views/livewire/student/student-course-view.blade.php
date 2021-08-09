@@ -45,7 +45,7 @@
                     </div>
                 </li>
             @empty
-                <h3 class="title col-span-4 my-10 md:text-2xl text-center">No lessons found. Create one now.</h3>
+                <h3 class="title col-span-4 my-10 md:text-2xl text-center">No lessons created for this course yet.</h3>
             @endforelse
         </ul>
     </div>
