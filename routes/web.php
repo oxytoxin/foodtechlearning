@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-Route::middleware('auth')->prefix('student')->name('student.')->group(function (){
+Route::middleware(['auth','role:student'])->prefix('student')->name('student.')->group(function (){
     Route::get('dashboard',\App\Http\Livewire\Student\StudentDashboard::class)->name('dashboard');
     Route::get('courses',\App\Http\Livewire\Student\StudentCoursesIndex::class)->name('courses');
     Route::get('gradebook',\App\Http\Livewire\Student\StudentGradebook::class)->name('gradebook');
@@ -68,7 +68,7 @@ Route::middleware('auth')->prefix('student')->name('student.')->group(function (
 
 });
 
-Route::middleware('auth')->prefix('teacher')->name('teacher.')->group(function(){
+Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function(){
     Route::get('dashboard',\App\Http\Livewire\Teacher\TeacherDashboard::class)->name('dashboard');
     Route::get('courses',\App\Http\Livewire\Teacher\TeacherCoursesIndex::class)->name('courses');
     Route::get('deleted-courses',\App\Http\Livewire\Teacher\TeacherDeletedCourses::class)->name('courses.deleted');
