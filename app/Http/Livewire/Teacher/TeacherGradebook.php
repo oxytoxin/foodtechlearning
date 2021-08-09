@@ -20,14 +20,15 @@ class TeacherGradebook extends Component
         ]);
     }
 
-    public function mount($course)
+    public function mount()
     {
 
-        if ($course){
+        if (request('course')){
+            $course = Course::find(request('course'));
             if ($course->user_id !== auth()->id()){
                 abort(403);
             }
-            $this->course = $course;
+            $this->course = $course->id;
         }else{
             $this->course = auth()->user()?->courses()->first()?->id;
         }
