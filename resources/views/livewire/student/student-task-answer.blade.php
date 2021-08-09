@@ -25,10 +25,6 @@
             <h3 class="title text-xl bg-primary-600 text-white py-1 px-4 rounded-full font-semibold">{{ strtoupper($task->task_type->name) }}</h3>
         </div>
         <button wire:click="submit_answers" class="button-primary mt-4">SUBMIT ANSWERS</button>
-        <hr class="border border-primary-500 my-2">
-        <div class="mt-4 px-4 flex justify-center items-center space-x-2">
-            <h3 class="title text-center">0/6 Questions Answered</h3>
-        </div>
     </div>
 
     @forelse($questions as $qk => $question)
