@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,8 @@ class Register extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
+
+        $user->roles()->attach(Role::find(2));
 
         event(new Registered($user));
 
