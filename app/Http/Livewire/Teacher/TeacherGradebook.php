@@ -20,7 +20,7 @@ class TeacherGradebook extends Component
         ]);
     }
 
-    public function mount($course = null)
+    public function mount($course)
     {
 
         if ($course){
