@@ -20,9 +20,17 @@ class TeacherGradebook extends Component
         ]);
     }
 
-    public function mount()
+    public function mount($course = null)
     {
-        $this->course = auth()->user()?->courses()->first()?->id;
+
+        if ($course){
+            if ($course->user_id !== auth()->id()){
+                abort(403);
+            }
+            $this->course = $course;
+        }else{
+            $this->course = auth()->user()?->courses()->first()?->id;
+        }
     }
 
     public function getbg($task_type)

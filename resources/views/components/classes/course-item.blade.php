@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div class="-ml-px w-0 flex-1 flex">
-                <a href="tel:+1-202-555-0170" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+                <a href="{{ route('teacher.gradebook', ['course' => $course]) }}" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
                     <!-- Heroicon name: solid/phone -->
                     <x-gmdi-table-chart-r class="text-gray-400"/>
                     <span class="ml-3">Grades</span>
