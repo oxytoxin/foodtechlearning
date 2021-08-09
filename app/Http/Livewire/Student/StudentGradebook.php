@@ -14,13 +14,13 @@ class StudentGradebook extends Component
         $class = Course::find($this->class);
         return view('livewire.student.student-gradebook',[
             'classes' => auth()->user()?->classes,
-            'tasks' => $class?->tasks->groupBy('task_type_id'),
+            'tasks' => $class?->tasks->groupBy('task_type_id') ?? [],
             'submissions' => auth()->user()?->submissions,
         ]);
     }
     public function mount()
     {
-        $this->class = auth()->user()?->classes()->first()->id;
+        $this->class = auth()->user()?->classes()->first()?->id;
     }
 
 }
