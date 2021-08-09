@@ -15,14 +15,14 @@ class TeacherGradebook extends Component
         $course = Course::find($this->course);
         return view('livewire.teacher.teacher-gradebook',[
             'courses' => auth()->user()?->courses,
-            'students' => $course?->students()->orderBy('last_name')->with('submissions')->get(),
-            'tasks' => $course?->tasks->groupBy('task_type_id'),
+            'students' => $course?->students()->orderBy('last_name')->with('submissions')->get() ?? [],
+            'tasks' => $course?->tasks->groupBy('task_type_id') ?? [],
         ]);
     }
 
     public function mount()
     {
-        $this->course = auth()->user()?->courses()->first()->id;
+        $this->course = auth()->user()?->courses()->first()?->id;
     }
 
     public function getbg($task_type)
