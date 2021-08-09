@@ -11,8 +11,16 @@ class TeacherCourseManage extends Component
 
     public function render()
     {
+
         return view('livewire.teacher.teacher-course-manage',[
             'lessons' => $this->course->lessons()->latest()->get(),
         ]);
+    }
+
+    public function mount()
+    {
+        if ($this->course->user_id !== auth()->id()){
+            abort(403);
+        }
     }
 }

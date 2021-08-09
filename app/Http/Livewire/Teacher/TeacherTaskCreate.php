@@ -36,6 +36,9 @@ class TeacherTaskCreate extends Component
 
     public function mount()
     {
+        if ($this->course->user_id !== auth()->id()){
+            abort(403);
+        }
         $this->add_question();
     }
 

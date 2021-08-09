@@ -55,4 +55,5 @@ class Task extends Model implements HasMedia
     {
         return $this->hasMany(Submission::class);
     }
+
 }

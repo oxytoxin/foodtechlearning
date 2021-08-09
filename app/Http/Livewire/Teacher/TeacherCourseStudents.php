@@ -42,4 +42,11 @@ class TeacherCourseStudents extends Component
         $this->course->students()->detach($student);
         $this->alert('success', 'Student unenrolled successfully!', ['toast' => false, 'position' => 'center']);
     }
+
+    public function mount()
+    {
+        if ($this->course->user_id !== auth()->id()){
+            abort(403);
+        }
+    }
 }

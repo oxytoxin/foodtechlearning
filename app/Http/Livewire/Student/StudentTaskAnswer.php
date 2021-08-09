@@ -24,6 +24,12 @@ class StudentTaskAnswer extends Component
 
     public function mount()
     {
+        $course = auth()->user()?->classes()->whereHas('tasks', function ($query){
+            $query->where('id', $this->task->id);
+        })->first();
+        if (!$course){
+            abort(403);
+        }
         foreach ($this->task->questions as $qk => $question) {
             $this->answers[$qk]['identifier'] = $question['identifier'];
             $this->answers[$qk]['answers'] = [];

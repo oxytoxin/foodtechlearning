@@ -15,4 +15,11 @@ class StudentCourseView extends Component
             'lessons' => $this->course->lessons()->orderByDesc('created_at')->get()
         ]);
     }
+
+    public function mount()
+    {
+        if (!auth()->user()->classes()->firstWhere('course_id', $this->course->id)){
+            abort(403);
+        }
+    }
 }

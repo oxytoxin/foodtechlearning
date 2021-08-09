@@ -25,4 +25,14 @@ class StudentLessonView extends Component
         $this->dispatchBrowserEvent('open-preview');
     }
 
+    public function mount()
+    {
+       $course = auth()->user()?->classes()->whereHas('lessons', function ($query){
+           $query->where('id', $this->lesson->id);
+       })->first();
+       if (!$course){
+           abort(403);
+       }
+    }
+
 }

@@ -21,6 +21,9 @@ class TeacherTasksIndex extends Component
 
     public function mount()
     {
+        if ($this->course->user_id !== auth()->id()){
+            abort(403);
+        }
         $this->current_task = $this->course->tasks->first();
     }
 

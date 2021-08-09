@@ -33,6 +33,11 @@ class Submission extends Model implements HasMedia
         return $this->date_submitted->format('M d, Y h:i a');
     }
 
+    public function getReadableDateGradedAttribute()
+    {
+        return $this->date_graded?->format('M d, Y h:i a') ?? 'ungraded';
+    }
+
     public function getScoreAttribute(){
         return collect($this->assessment)->sum('score');
     }

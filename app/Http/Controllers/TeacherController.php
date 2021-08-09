@@ -9,6 +9,9 @@ class TeacherController extends Controller
 {
     public function delete_course(Course $course)
     {
+        if ($course->user_id !== auth()->id()){
+            abort(403);
+        }
         $course->delete();
         session()->flash('flash_message','Course deleted successfully.');
         return redirect()->route('teacher.courses');
@@ -16,6 +19,9 @@ class TeacherController extends Controller
 
     public function restore_course($course)
     {
+        if ($course->user_id !== auth()->id()){
+            abort(403);
+        }
         $course = Course::withTrashed()->findOrFail($course);
         $course->restore();
         session()->flash('flash_message','Course restored successfully.');
@@ -24,6 +30,9 @@ class TeacherController extends Controller
 
     public function force_delete_course($course)
     {
+        if ($course->user_id !== auth()->id()){
+            abort(403);
+        }
         $course = Course::withTrashed()->findOrFail($course);
         $course->forceDelete();
         session()->flash('flash_message','Course deleted permanently.');

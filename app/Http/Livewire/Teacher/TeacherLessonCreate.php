@@ -21,6 +21,9 @@ class TeacherLessonCreate extends Component
 
     public function mount()
     {
+        if ($this->course->user_id !== auth()->id()){
+            abort(403);
+        }
         if (request('editing') && request('lesson')){
             $lesson = Lesson::whereId(request('lesson'))->whereCourseId($this->course->id)->firstOrFail();
             $this->editing = request('editing');
