@@ -27,7 +27,7 @@
         <h4 class="title">Lesson Attachments</h4>
         <div class="space-y-2">
             @forelse ($attachments as $attachment)
-                <div class="outline-primary px-8 !border-green-400 flex items-center justify-between py-2">
+                <div class="outline-primary px-8 !border-green-400 flex flex-col md:flex-row items-center justify-between py-2">
                     <h3>{{ $attachment->name }}</h3>
                     <div class="text-xs">
                         <span class="title-xs">{{ $attachment->human_readable_size }}</span>
