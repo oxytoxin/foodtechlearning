@@ -16,6 +16,8 @@
             <h3 class="title-sm">Lesson Description:</h3>
             <p class="tracking-wider px-4 italic text-sm">{{ $lesson->description }}</p>
             <h4 class="title-sm">Date Created: {{ $lesson->readable_date_created }}</h4>
+            <h4 class="title-sm">Status: {{ $lesson->status }}</h4>
+            <button wire:click="toggle_lesson_status" class="{{ $lesson->locked ? 'button-primary' : 'button-danger' }}">{{ $lesson->locked ? 'Unlock Lesson' : 'Lock Lesson' }}</button>
         </div>
 
     </div>

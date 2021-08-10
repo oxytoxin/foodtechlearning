@@ -25,4 +25,17 @@ class TeacherLessonManage extends Component
         $this->lesson->syncFromMediaLibraryRequest($this->attachments)->toMediaCollection();
         $this->alert('success', 'Lesson attachments have been updated.', ['toast' => false, 'position' => 'center']);
     }
+
+    public function toggle_lesson_status()
+    {
+        $status = !$this->lesson->locked;
+        $this->lesson->update([
+            'locked' => $status
+        ]);
+        if ($status){
+            $this->alert('success', 'Lesson locked.', ['toast' => false, 'position' => 'center']);
+        }else{
+            $this->alert('success', 'Lesson unlocked.', ['toast' => false, 'position' => 'center']);
+        }
+    }
 }

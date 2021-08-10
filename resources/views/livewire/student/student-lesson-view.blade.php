@@ -9,8 +9,14 @@
 
 <div>
     <div x-data="{preview: false}" x-show="preview" x-cloak @open-preview.window="preview = true" class="bg-gray-600 bg-opacity-75 inset-0 fixed flex flex-col justify-center items-center p-4 z-10">
-        <iframe src="{{ $current_attachment?->getUrl() }}" @click.away="preview = false" class="bg-white md:w-3/4 p-4 overflow-y-auto flex-1">
-        </iframe>
+        @env('local')
+            <iframe allowfullscreen src="{{ $current_attachment?->getUrl() }}" @click.away="preview = false" class="bg-white md:w-3/4 p-4 overflow-y-auto flex-1">
+            </iframe>
+        @endenv
+        @env('production')
+            <iframe src="https://drive.google.com/viewer?url={{ $current_attachment?->getUrl() }}/embedded=true" allowfullscreen @click.away="preview = false" class="bg-white md:w-3/4 p-4 overflow-y-auto flex-1">
+            </iframe>
+        @endenv
     </div>
     <div class="p-4 bg-white outline-primary">
         <div>
@@ -33,9 +39,7 @@
                         <span class="title-xs">{{ $attachment->human_readable_size }}</span>
                         <span class="title-xs bg-green-300 py-1 px-2 rounded-full">{{ $attachment->extension }}</span>
                         <a href="{{ $attachment->getUrl() }}" download class="text-green-500 rounded-full border p-1 border-green-800 hover:bg-green-200 hover:text-green-700"><x-gmdi-download-for-offline-r />Download</a>
-                        @if (in_array($attachment->type, ['pdf', 'video', 'image']))
-                            <button wire:click="preview_attachment({{$attachment->id}})" class="text-green-500 rounded-full border p-1 border-green-800 hover:bg-green-200 hover:text-green-700"><x-gmdi-remove-red-eye-r />Preview</button>
-                        @endif
+                        <button wire:click="preview_attachment({{$attachment->id}})" class="text-green-500 rounded-full border p-1 border-green-800 hover:bg-green-200 hover:text-green-700"><x-gmdi-remove-red-eye-r />Preview</button>
                     </div>
                 </div>
             @empty

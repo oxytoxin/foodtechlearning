@@ -32,4 +32,9 @@ class Lesson extends Model implements HasMedia
             ->sharpen(10);
     }
 
+    public function getStatusAttribute()
+    {
+        return $this->locked ? 'Locked' : 'Unlocked';
+    }
+
 }

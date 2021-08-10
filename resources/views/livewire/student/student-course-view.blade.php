@@ -27,20 +27,30 @@
                     </div>
                     <div>
                         <div class="-mt-px flex divide-x divide-gray-200">
-                            <div class="w-0 flex-1 flex">
-                                <a href="{{ route('student.lesson.view', ['lesson' => $lesson]) }}" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
-                                    <!-- Heroicon name: solid/phone -->
-                                    <x-gmdi-table-chart-r class="text-gray-400"/>
-                                    <span class="ml-3">View</span>
-                                </a>
-                            </div>
-                            <div class="-ml-px w-0 flex-1 flex">
-                                <a href="{{ route('download.attachments', ['lesson' => $lesson, 'editing' => true]) }}" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
-                                    <!-- Heroicon name: solid/mail -->
-                                    <x-gmdi-download-for-offline-r class="text-gray-400"/>
-                                    <span class="ml-3 text-sm text-center">Download</span>
-                                </a>
-                            </div>
+                            @if ($lesson->locked)
+                                <div class="w-0 flex-1 flex">
+                                    <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+                                        <!-- Heroicon name: solid/phone -->
+                                        <x-gmdi-lock-r class="text-gray-400"/>
+                                        <span class="ml-3">LOCKED</span>
+                                    </a>
+                                </div>
+                            @else
+                                <div class="w-0 flex-1 flex">
+                                    <a href="{{ route('student.lesson.view', ['lesson' => $lesson]) }}" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+                                        <!-- Heroicon name: solid/phone -->
+                                        <x-gmdi-table-chart-r class="text-gray-400"/>
+                                        <span class="ml-3">View</span>
+                                    </a>
+                                </div>
+                                <div class="-ml-px w-0 flex-1 flex">
+                                    <a href="{{ route('download.attachments', ['lesson' => $lesson, 'editing' => true]) }}" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+                                        <!-- Heroicon name: solid/mail -->
+                                        <x-gmdi-download-for-offline-r class="text-gray-400"/>
+                                        <span class="ml-3 text-sm text-center">Download</span>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </li>

@@ -33,6 +33,9 @@ class StudentLessonView extends Component
        if (!$course){
            abort(403);
        }
+       if ($this->lesson->locked){
+           abort(403);
+       }
     }
 
 }

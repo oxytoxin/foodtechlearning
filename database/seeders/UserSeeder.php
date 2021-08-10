@@ -17,18 +17,54 @@ class UserSeeder extends Seeder
     public function run()
     {
         $teacher = User::create([
-            'first_name' => 'Mark John Lerry',
-            'last_name' => 'Casero',
-            'email' => 'markjohnlerrycasero@sksu.edu.ph',
+            'first_name' => 'Kenneth',
+            'last_name' => 'Antatino',
+            'email' => 'kennethantatino@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ]);
         $teacher->roles()->attach(Role::find(1));
         $student = User::create([
-            'first_name' => 'Johnrey',
-            'last_name' => 'Naceda',
-            'email' => 'johnreynaceda@sksu.edu.ph',
+            'first_name' => 'Sample',
+            'last_name' => 'Student 1',
+            'email' => 'sample1@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+        $student->roles()->attach(Role::find(2));
+        $student = User::create([
+            'first_name' => 'Sample',
+            'last_name' => 'Student 2',
+            'email' => 'sample2@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+        $student->roles()->attach(Role::find(2));
+        $student = User::create([
+            'first_name' => 'Sample',
+            'last_name' => 'Student 3',
+            'email' => 'sample3@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+        $student->roles()->attach(Role::find(2));
+        $student = User::create([
+            'first_name' => 'Sample',
+            'last_name' => 'Student 4',
+            'email' => 'sample4@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+        $student->roles()->attach(Role::find(2));
+        $student = User::create([
+            'first_name' => 'Sample',
+            'last_name' => 'Student 5',
+            'email' => 'sample5@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

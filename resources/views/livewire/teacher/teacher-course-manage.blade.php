@@ -37,6 +37,7 @@
                                     <span class="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{ $lesson->getMedia()->count() }} attachments</span>
                                 </div>
                                 <p class="mt-1 text-gray-500 text-xs truncate">Date Created: {{ $lesson->readable_date_created }}</p>
+                                <h5 class="title-sm">Status: {{ $lesson->status }}</h5>
                             </div>
                             <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="{{ uiavatar($lesson->name) }}" alt="">
                         </div>
