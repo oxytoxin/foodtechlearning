@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         $student = User::create([
             'first_name' => 'Sample',
             'last_name' => 'Student 1',
-            'email' => 'sample1@gmail.com',
+            'email' => 'studentsample1@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         $student = User::create([
             'first_name' => 'Sample',
             'last_name' => 'Student 2',
-            'email' => 'sample2@gmail.com',
+            'email' => 'studentsample2@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
         $student = User::create([
             'first_name' => 'Sample',
             'last_name' => 'Student 3',
-            'email' => 'sample3@gmail.com',
+            'email' => 'studentsample3@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
         $student = User::create([
             'first_name' => 'Sample',
             'last_name' => 'Student 4',
-            'email' => 'sample4@gmail.com',
+            'email' => 'studentsample4@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
         $student = User::create([
             'first_name' => 'Sample',
             'last_name' => 'Student 5',
-            'email' => 'sample5@gmail.com',
+            'email' => 'studentsample5@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
