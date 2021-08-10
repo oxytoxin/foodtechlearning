@@ -9,14 +9,14 @@
 
 <div>
     <div x-data="{preview: false}" x-show="preview" x-cloak @open-preview.window="preview = true" class="bg-gray-600 bg-opacity-75 inset-0 fixed flex flex-col justify-center items-center p-4 z-10">
-        @env('local')
+        @if (in_array($current_attachment?->type, ['pdf', 'video', 'image']))
             <iframe allowfullscreen src="{{ $current_attachment?->getUrl() }}" @click.away="preview = false" class="bg-white md:w-3/4 p-4 overflow-y-auto flex-1">
             </iframe>
-        @endenv
-        @env('production')
-            <iframe src="https://drive.google.com/viewer?url={{ $current_attachment?->getUrl() }}/embedded=true" allowfullscreen @click.away="preview = false" class="bg-white md:w-3/4 p-4 overflow-y-auto flex-1">
+        @else
+            <iframe allowfullscreen src="https://drive.google.com/viewer?url={{ $current_attachment?->getUrl() }}&embedded=true" @click.away="preview = false" class="bg-white md:w-3/4 p-4 overflow-y-auto flex-1">
             </iframe>
-        @endenv
+        @endif
+
     </div>
     <div class="p-4 bg-white outline-primary">
         <div>
