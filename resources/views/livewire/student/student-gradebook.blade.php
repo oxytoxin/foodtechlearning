@@ -47,23 +47,35 @@
                                             @php
                                                 $submission = $submissions->firstWhere('task_id', $task->id);
                                             @endphp
-                                            <tr class="bg-white">
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                    {{ $task->name }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
-                                                    {{ $submission->score }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
-                                                    {{ $submission->readable_date_submitted }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
-                                                    {{ $submission->readable_date_graded }}
-                                                </td>
-                                            </tr>
+                                            @if ($submission)
+                                                <tr class="bg-white">
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                        {{ $task->name }}
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                                                        {{ $submission->score }}
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                                                        {{ $submission->readable_date_submitted }}
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                                                        {{ $submission->readable_date_graded }}
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                <tr class="bg-white">
+                                                    <td colspan="2" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                        {{ $task->name }}
+                                                    </td>
+                                                    <td colspan="2" class="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
+                                                        No submission
+                                                    </td>
+                                                </tr>
+                                            @endif
+
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="title-sm text-center p-4">No students enrolled in this course.</td>
+                                                <td colspan="4" class="title-sm text-center p-4">No tasks created for this course.</td>
                                             </tr>
                                         @endforelse
                                         </tbody>
@@ -73,7 +85,7 @@
                         </div>
                     </div>
             @empty
-
+            <h3 class="title text-2xl text-center p-4">No tasks created for this course.</h3>
             @endforelse
         </div>
     </div>
