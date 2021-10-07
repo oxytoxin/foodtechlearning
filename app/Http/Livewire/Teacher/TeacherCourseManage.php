@@ -11,16 +11,28 @@ class TeacherCourseManage extends Component
 
     public function render()
     {
-
-        return view('livewire.teacher.teacher-course-manage',[
+        return view('livewire.teacher.teacher-course-manage', [
             'lessons' => $this->course->lessons()->latest()->get(),
         ]);
     }
 
     public function mount()
     {
-        if ($this->course->user_id !== auth()->id()){
+        if ($this->course->user_id !== auth()->id()) {
             abort(403);
         }
+    }
+
+    public function create_chatroom()
+    {
+        if ($this->course->chatroom) {
+            abort(403);
+        }
+        $chatroom = $this->course->chatroom()->create([
+            'name' => $this->course->name . '(' . $this->course->section_code . ')'
+        ]);
+        $chatroom->users()->attach(auth()->user());
+        $this->alert('success', 'Chatroom created!');
+        $this->course->refresh();
     }
 }

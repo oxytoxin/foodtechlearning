@@ -26,7 +26,8 @@ class Course extends Model
         return $this->belongsToMany(User::class, 'course_user')->withTimestamps();
     }
 
-    public function teacher(){
+    public function teacher()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
@@ -38,5 +39,20 @@ class Course extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function chatroom()
+    {
+        return $this->hasOne(Chatroom::class);
+    }
+
+    public function getVideocallRoomAttribute()
+    {
+        return preg_replace("/[^a-zA-Z0-9\-]/", "", strtolower($this->name.'-'.$this->section_code));
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        return "https://ui-avatars.com/api/?name=" . $this->name;
     }
 }

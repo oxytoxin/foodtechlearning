@@ -68,4 +68,26 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Submission::class);
     }
+
+    public function chatrooms()
+    {
+        return $this->belongsToMany(Chatroom::class)->withPivot('message_id')->withTimestamps();
+    }
+
+    public function getProfilePhotoAttribute(): string
+    {
+        return "https://ui-avatars.com/api/?name=" . $this->name;
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function getUnreadMessagesAttribute()
+    {
+        return $this->chatrooms->filter(function ($chatroom) {
+            return $chatroom->latest_message?->id !== $chatroom->pivot->message_id && $chatroom->latest_message->user_id !== auth()->id();
+        })->count();
+    }
 }

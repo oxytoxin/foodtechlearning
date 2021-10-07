@@ -13,7 +13,7 @@ class TeacherCourseStudents extends Component
 
     public function render()
     {
-        return view('livewire.teacher.teacher-course-students',[
+        return view('livewire.teacher.teacher-course-students', [
             'students' => $this->course->students()->orderBy('last_name')->get()
         ]);
     }
@@ -24,15 +24,15 @@ class TeacherCourseStudents extends Component
             'email' => 'required|email'
         ]);
         $student = User::firstWhere('email', $this->email);
-        if($student){
-            if ($this->course->students()->firstWhere('email', $student->email)){
+        if ($student) {
+            if ($this->course->students()->firstWhere('email', $student->email)) {
                 return $this->alert('error', 'Student already enrolled!', ['toast' => false, 'position' => 'center']);
             }
             $this->course->students()->attach($student);
+            $this->course->chatroom->users()->attach($student);
             $this->email = '';
             $this->alert('success', 'Student enrolled successfully!', ['toast' => false, 'position' => 'center']);
-
-        }else{
+        } else {
             return $this->alert('error', 'Student does not exist!', ['toast' => false, 'position' => 'center']);
         }
     }
@@ -45,7 +45,7 @@ class TeacherCourseStudents extends Component
 
     public function mount()
     {
-        if ($this->course->user_id !== auth()->id()){
+        if ($this->course->user_id !== auth()->id()) {
             abort(403);
         }
     }
