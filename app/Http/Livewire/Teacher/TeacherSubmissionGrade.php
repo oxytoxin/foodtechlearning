@@ -13,7 +13,7 @@ class TeacherSubmissionGrade extends Component
 
     public function render()
     {
-        return view('livewire.teacher.teacher-submission-grade',[
+        return view('livewire.teacher.teacher-submission-grade', [
             'task' => $this->submission->task,
             'attachments' => $this->submission->getMedia()
         ]);
@@ -21,14 +21,13 @@ class TeacherSubmissionGrade extends Component
 
     public function mount()
     {
-        foreach ($this->submission->answers as $ak => $answer){
+        foreach ($this->submission->answers as $ak => $answer) {
             $this->assessment[$ak]['identifier'] = $answer['identifier'];
             $this->assessment[$ak]['score'] = 0;
             $this->assessment[$ak]['partial'] = 1;
             $this->assessment[$ak]['rating'] = 'ungraded';
         }
         $this->questions = $this->submission->task->questions;
-
     }
 
     public function grade_as_correct($qk)
@@ -49,7 +48,7 @@ class TeacherSubmissionGrade extends Component
     {
         $this->validate([
             "assessment.$qk.partial" => "integer|required|numeric|min:1|max:".$this->questions[$qk]['points'],
-        ],[],[
+        ], [], [
             "assessment.$qk.partial" => 'partial points'
         ]);
         $this->assessment[$qk]['score'] = $this->assessment[$qk]['partial'];
@@ -70,14 +69,14 @@ class TeacherSubmissionGrade extends Component
     public function finish_grading()
     {
         $assessment = collect($this->assessment);
-        if ($assessment->filter(fn($item) => $item['rating'] === 'ungraded')->count()){
-            return $this->alert('error', 'You have ungraded items.',['toast' => false, 'position' => 'center']);
+        if ($assessment->filter(fn ($item) => $item['rating'] === 'ungraded')->count()) {
+            return $this->alert('error', 'You have unchecked items.', ['toast' => false, 'position' => 'center']);
         }
         $this->submission->update([
             'assessment' => $this->assessment,
             'date_graded' => now()
         ]);
-        session()->flash('flash_message', 'Submission graded!');
+        session()->flash('flash_message', 'Submission checked!');
         $this->redirect(route('teacher.tasks.manage', ['task' => $this->submission->task]));
     }
 }
