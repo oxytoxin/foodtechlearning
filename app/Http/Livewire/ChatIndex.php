@@ -22,7 +22,10 @@ class ChatIndex extends Component
 
     public function render()
     {
-        $chatrooms = auth()->user()?->chatrooms()->with('course');
+        $chatrooms = auth()->user()?->chatrooms()
+        ->has('course')
+        ->orWhere('course_id', null)
+        ->with('course');
         if ($this->search) {
             $chatrooms = $chatrooms->where('name', 'like', "%$this->search%");
             $users = User::where('first_name', 'like', "%$this->search%")->orWhere('last_name', 'like', "%$this->search%")->take(10)->get();
