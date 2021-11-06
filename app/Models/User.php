@@ -90,4 +90,9 @@ class User extends Authenticatable implements HasMedia
             return $chatroom->latest_message?->id !== $chatroom->pivot->message_id && $chatroom->latest_message->user_id !== auth()->id();
         })->count();
     }
+
+    public function roll_calls()
+    {
+        return $this->hasMany(Rollcall::class);
+    }
 }
