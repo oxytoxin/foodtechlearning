@@ -55,4 +55,9 @@ class Course extends Model
     {
         return "https://ui-avatars.com/api/?name=" . $this->name;
     }
+
+    public function roll_calls()
+    {
+        return $this->hasMany(Rollcall::class);
+    }
 }
