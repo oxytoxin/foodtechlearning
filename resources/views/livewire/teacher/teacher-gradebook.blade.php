@@ -1,14 +1,25 @@
 <div>
-    <div>
-        <label class="block title-sm" for="courses">Course</label>
-        <select wire:model="course" name="courses" id="courses">
-            @forelse ($courses as $course)
-                <option value="{{ $course->id }}">{{ $course->name }}</option>
-            @empty
-                <option value="null" disabled hidden selected>No courses available</option>
-            @endforelse
-        </select>
+    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+        <div>
+            <label class="block title-sm"
+                   for="courses">Course</label>
+            <select wire:model="course_id"
+                    name="courses"
+                    id="courses">
+                @forelse ($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
+                @empty
+                    <option value="null"
+                            disabled
+                            hidden
+                            selected>No courses available</option>
+                @endforelse
+            </select>
+        </div>
+        <a href="{{ route('teacher.course.roll_call', ['course' => $course_id]) }}"
+           class="flex items-center justify-center px-16 button-danger">Roll Call</a>
     </div>
+
     <div>
         <h3 class="mt-4 title">Course Students</h3>
         {{-- @dump($tasks) --}}
@@ -20,24 +31,29 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col"
-                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                    </th>
-                                    @foreach ($tasks as $task_type => $task_type_tasks)
-                                        <th scope="col" colspan="{{ $task_type_tasks->count() }}"
-                                            class="px-6 {{ $this->getbg($task_type) }} text-center py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            {{ Str::plural(\App\Models\TaskType::find($task_type)->name) }}
-                                        </th>
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    <th scope="col"
+                                        rowspan="2"
                                         class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                         Name
                                     </th>
+                                    @foreach ($tasks as $task_type => $task_type_tasks)
+                                        <th scope="col"
+                                            colspan="{{ $task_type_tasks->count() }}"
+                                            class="px-6 {{ $this->getbg($task_type) }} text-center py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ Str::plural(\App\Models\TaskType::find($task_type)->name) }}
+                                        </th>
+                                    @endforeach
+                                    <th scope="col"
+                                        rowspan="2"
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase bg-green-400">
+                                        Attendance
+                                    </th>
+                                </tr>
+                                <tr>
+
                                     @foreach ($tasks as $type_tasks)
                                         @foreach ($type_tasks as $task)
                                             <th scope="col"
-                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-center text-gray-500 uppercase">
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
                                                 {{ $loop->iteration }}
                                             </th>
                                         @endforeach
@@ -58,10 +74,14 @@
                                                 {{ $submission ? ($submission->date_graded ? "$submission->score/{$submission->task->max_score}" : 'unchecked') : 'none' }}
                                             </td>
                                         @endforeach
+                                        <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
+                                            {{ $student->attendances_count }}/{{ $school_days_count }}
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="p-4 text-center title-sm">No students enrolled in this
+                                        <td colspan="4"
+                                            class="p-4 text-center title-sm">No students enrolled in this
                                             course.</td>
                                     </tr>
                                 @endforelse

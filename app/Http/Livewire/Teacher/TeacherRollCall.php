@@ -14,11 +14,19 @@ class TeacherRollCall extends Component
 
     public function render()
     {
+        if (!$this->current_date) {
+            $this->current_date = null;
+        }
         return view('livewire.teacher.teacher-roll-call', [
             'attendances' => Rollcall::whereDateTaken($this->current_date)->get(),
             'students' => $this->course->students,
             'roll_call' => Rollcall::where('course_id', $this->course->id)->whereDateTaken($this->current_date)->first(),
         ]);
+    }
+
+    public function mount()
+    {
+        $this->current_date = today()->format('Y-m-d');
     }
 
     public function create_roll_call()
@@ -28,12 +36,14 @@ class TeacherRollCall extends Component
         ]);
 
         $roll_calls = collect();
-        $now = today();
+        $now = now();
         foreach ($this->course->students as $key => $student) {
             $roll_calls->push([
                 'user_id' => $student->id,
                 'course_id' => $this->course->id,
-                'date_taken' => $this->current_date
+                'date_taken' => $this->current_date,
+                'created_at' => $now,
+                'updated_at' => $now,
             ]);
         }
 
