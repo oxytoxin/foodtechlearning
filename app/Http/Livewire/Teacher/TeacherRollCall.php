@@ -18,7 +18,7 @@ class TeacherRollCall extends Component
             $this->current_date = null;
         }
         return view('livewire.teacher.teacher-roll-call', [
-            'attendances' => Rollcall::whereDateTaken($this->current_date)->get(),
+            'attendances' => Rollcall::where('course_id', $this->course->id)->whereDateTaken($this->current_date)->get(),
             'students' => $this->course->students,
             'roll_call' => Rollcall::where('course_id', $this->course->id)->whereDateTaken($this->current_date)->first(),
         ]);
@@ -87,7 +87,7 @@ class TeacherRollCall extends Component
 
     public function all_present()
     {
-        Rollcall::where('course_id', $this->course->id)->update([
+        Rollcall::where('course_id', $this->course->id)->whereDateTaken($this->current_date)->update([
             'status' => Rollcall::PRESENT
         ]);
         $this->alert('success', 'All students present.');
@@ -104,7 +104,7 @@ class TeacherRollCall extends Component
 
     public function reset_all()
     {
-        Rollcall::where('course_id', $this->course->id)->update([
+        Rollcall::where('course_id', $this->course->id)->whereDateTaken($this->current_date)->update([
             'status' => null
         ]);
         $this->alert('success', 'Roll call reset.');

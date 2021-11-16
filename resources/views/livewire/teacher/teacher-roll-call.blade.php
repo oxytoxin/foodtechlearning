@@ -10,7 +10,7 @@
     <div>
         @if ($roll_call)
             <button wire:click="all_present"
-                    class="button-primary">All Present</button>
+                    class="bg-green-600 button-primary hover:bg-green-700">All Present</button>
             <button wire:click="reset_all"
                     class="button-danger">Reset</button>
         @else
@@ -27,6 +27,26 @@
     @error('current_date')
         <h5 class="text-sm italic text-red-600">{{ $message }}</h5>
     @enderror
+    <div class="p-4 my-4 text-center bg-white">
+        <h5 class="title-sm">Legend</h5>
+        <ul class="flex flex-wrap justify-center space-x-2">
+            <li>
+                <x-gmdi-check-circle-outline-r class="text-green-600" />PRESENT
+            </li>
+            <li>
+                <x-gmdi-add-circle-outline-r class="text-red-600 rotate-45" />ABSENT
+            </li>
+            <li>
+                <x-gmdi-remove-circle-outline-r class="text-yellow-600" />EXCUSED
+            </li>
+            <li>
+                <x-gmdi-change-circle-r class="text-yellow-900" />UNCHECKED
+            </li>
+        </ul>
+        @if ($current_date)
+            <h4 class="mt-4 title">Class Attendance for {{ Carbon\Carbon::parse($current_date)->format('M d, Y') }}</h4>
+        @endif
+    </div>
     <div>
         @if ($roll_call)
             <div class="flex flex-col mt-4 outline-primary">
@@ -45,11 +65,11 @@
                                             First Name
                                         </th>
                                         <th scope="col"
-                                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                            class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
                                             Status
                                         </th>
                                         <th scope="col"
-                                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-center text-gray-500 uppercase">
+                                            class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">
                                             Actions
                                         </th>
                                     </tr>
@@ -63,31 +83,50 @@
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                 {{ $student->first_name }}
                                             </td>
-                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {{ $this->getStatus($attendances->firstWhere('user_id', $student->id)?->status) }}
+                                            <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
+                                                @switch($attendances->firstWhere('user_id', $student->id)?->status)
+                                                    @case(1)
+                                                        <x-gmdi-check-circle-outline-r class="text-green-600" />
+                                                    @break
+                                                    @case(2)
+                                                        <x-gmdi-add-circle-outline-r class="text-red-600 rotate-45" />
+                                                    @break
+                                                    @case(3)
+                                                        <x-gmdi-remove-circle-outline-r class="text-yellow-600" />
+                                                    @break
+                                                    @default
+                                                        <x-gmdi-change-circle-r class="text-yellow-900" />
+
+                                                @endswitch
                                             </td>
                                             <td class="flex justify-center px-6 py-4 space-x-4 text-sm font-medium text-right whitespace-nowrap">
                                                 <button wire:click="present({{ $student->id }})"
-                                                        class="text-green-600 underline hover:text-green-900 focus:outline-none">Present</button>
+                                                        class="text-green-600 underline hover:text-green-900 focus:outline-none">
+                                                    <x-gmdi-check-circle-outline-r />
+                                                </button>
                                                 <button wire:click="absent({{ $student->id }})"
-                                                        class="text-red-600 underline hover:text-red-900 focus:outline-none">Absent</button>
+                                                        class="text-red-600 underline hover:text-red-900 focus:outline-none">
+                                                    <x-gmdi-add-circle-outline-r class="rotate-45" />
+                                                </button>
                                                 <button wire:click="excused({{ $student->id }})"
-                                                        class="text-yellow-600 underline hover:text-yellow-900 focus:outline-none">Excused</button>
+                                                        class="text-yellow-600 underline hover:text-yellow-900 focus:outline-none">
+                                                    <x-gmdi-remove-circle-outline-r />
+                                                </button>
                                             </td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="4"
-                                                class="p-4 text-center title-sm">No students enrolled in this course.</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4"
+                                                    class="p-4 text-center title-sm">No students enrolled in this course.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @else
-                <h4 class="p-4 text-center title">No roll call created for this date.</h4>
-        @endif
+                @else
+                    <h4 class="p-4 text-center title">No roll call created for this date.</h4>
+            @endif
+        </div>
     </div>
-</div>
