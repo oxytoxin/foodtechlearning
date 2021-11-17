@@ -43,6 +43,8 @@
                 <x-gmdi-change-circle-r class="text-yellow-900" />UNCHECKED
             </li>
         </ul>
+        <a href="{{ route('teacher.course.roll_call_summary', ['course' => $course]) }}"
+           class="font-semibold text-green-600 underline hover:text-green-700">View Summary</a>
         @if ($current_date)
             <h4 class="mt-4 title">Class Attendance for {{ Carbon\Carbon::parse($current_date)->format('M d, Y') }}</h4>
         @endif

@@ -80,6 +80,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::get('course/{course}/tasks', \App\Http\Livewire\Teacher\TeacherTasksIndex::class)->name('tasks.index');
     Route::get('course/{course}/task/create', \App\Http\Livewire\Teacher\TeacherTaskCreate::class)->name('tasks.create');
     Route::get('course/{course}/roll-call', \App\Http\Livewire\Teacher\TeacherRollCall::class)->name('course.roll_call');
+    Route::get('course/{course}/roll-call-summary', \App\Http\Livewire\Teacher\TeacherRollcallSummary::class)->name('course.roll_call_summary');
     Route::get('/task/{task}/manage', \App\Http\Livewire\Teacher\TeacherTaskManage::class)->name('tasks.manage');
     Route::get('/submission/{submission}/grade', \App\Http\Livewire\Teacher\TeacherSubmissionGrade::class)->name('submission.grade');
     Route::post('course/{course}/restore', [\App\Http\Controllers\TeacherController::class, 'restore_course'])->name('course.restore');

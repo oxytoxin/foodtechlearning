@@ -22,7 +22,6 @@
 
     <div>
         <h3 class="mt-4 title">Course Students</h3>
-        {{-- @dump($tasks) --}}
         <div class="flex flex-col outline-primary">
             <div class="-my-2 overflow-x-auto sm:-mx-6 md:-mx-0">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 md:px-0">
