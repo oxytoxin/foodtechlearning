@@ -248,29 +248,31 @@
                 @endforelse
             @else
                 @forelse ($chatrooms as $chatroom)
-                    <button @click="show_chatrooms = false"
-                            wire:click="change_active_chatroom({{ $chatroom->id }})"
-                            class="text-left focus:outline-none">
-                        <li title="{{ $chatroom->name }}"
-                            class="@if ($chatroom->latest_message?->unread($chatroom->pivot->message_id)){{ 'bg-blue-200' }} @else {{ 'bg-gray-100' }} @endif flex items-center space-x-2 hover:bg-gray-200 p-2">
-                            <div class="relative flex-shrink-0 w-12 h-12">
-                                @if ($chatroom->latest_message?->unread($chatroom->pivot->message_id))
-                                    <div class="absolute top-0 right-0 w-4 h-4 bg-blue-600 border-2 border-white rounded-full">
-                                    </div>
-                                @endif
-                                <img class="h-full bg-cover rounded-full"
-                                     src="{{ $chatroom->course_id ? $chatroom->course?->image_url : $chatroom?->profile_photo }}"
-                                     alt="profile photo">
-                            </div>
-                            <div class="overflow-hidden w-96">
-                                <h4 class="truncate">{{ $chatroom->name }}</h4>
-                                <h5 class="text-xs @if ($chatroom->latest_message?->unread($chatroom->pivot->message_id)){{ 'font-bold' }}@endif truncate text-gray-600"><strong class="font-semibold">{{ $chatroom->latest_message?->sender?->name ?? 'System' }}:</strong>
-                                    {{ $chatroom->latest_message?->body }}</h5>
-                                <h4 class="text-xs font-semibold text-right text-gray-500">
-                                    {{ $chatroom->latest_message?->readable_date_sent }}</h4>
-                            </div>
-                        </li>
-                    </button>
+                    @if (!$chatroom->course_id || $chatroom->course)
+                        <button @click="show_chatrooms = false"
+                                wire:click="change_active_chatroom({{ $chatroom->id }})"
+                                class="text-left focus:outline-none">
+                            <li title="{{ $chatroom->name }}"
+                                class="@if ($chatroom->latest_message?->unread($chatroom->pivot->message_id)){{ 'bg-blue-200' }} @else {{ 'bg-gray-100' }} @endif flex items-center space-x-2 hover:bg-gray-200 p-2">
+                                <div class="relative flex-shrink-0 w-12 h-12">
+                                    @if ($chatroom->latest_message?->unread($chatroom->pivot->message_id))
+                                        <div class="absolute top-0 right-0 w-4 h-4 bg-blue-600 border-2 border-white rounded-full">
+                                        </div>
+                                    @endif
+                                    <img class="h-full bg-cover rounded-full"
+                                         src="{{ $chatroom->course_id ? $chatroom->course?->image_url : $chatroom?->profile_photo }}"
+                                         alt="profile photo">
+                                </div>
+                                <div class="overflow-hidden w-96">
+                                    <h4 class="truncate">{{ $chatroom->name }}</h4>
+                                    <h5 class="text-xs @if ($chatroom->latest_message?->unread($chatroom->pivot->message_id)){{ 'font-bold' }}@endif truncate text-gray-600"><strong class="font-semibold">{{ $chatroom->latest_message?->sender?->name ?? 'System' }}:</strong>
+                                        {{ $chatroom->latest_message?->body }}</h5>
+                                    <h4 class="text-xs font-semibold text-right text-gray-500">
+                                        {{ $chatroom->latest_message?->readable_date_sent }}</h4>
+                                </div>
+                            </li>
+                        </button>
+                    @endif
                 @empty
                     <li title="{{ auth()->user()->name }}"
                         class="flex items-center p-2 space-x-2 bg-gray-100 hover:bg-gray-200">
