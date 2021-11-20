@@ -26,6 +26,7 @@ class ChatIndex extends Component
             ->whereHas('course', function (Builder $query) {
                 $query->whereNull('deleted_at');
             })
+            ->orWhere('course_id', null)
             ->with('course');
         if ($this->search) {
             $chatrooms = $chatrooms->where('name', 'like', "%$this->search%");
