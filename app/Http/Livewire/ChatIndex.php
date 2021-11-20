@@ -25,7 +25,7 @@ class ChatIndex extends Component
         $chatrooms = auth()->user()?->chatrooms()
         ->orWhere('course_id', null)
         ->whereHas('course', function ($query) {
-            $query->withoutTrashed();
+            $query->whereNotNull('deleted_at');
         })
         ->with('course');
         if ($this->search) {
