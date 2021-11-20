@@ -13,7 +13,7 @@ class TeacherGradebook extends Component
 
     public function render()
     {
-        $course = Course::findOrFail($this->course_id);
+        $course = Course::find($this->course_id);
         return view('livewire.teacher.teacher-gradebook', [
             'courses' => auth()->user()?->courses,
             'students' => $course?->students()->orderBy('last_name')->with(['submissions'])->withCount(['roll_calls as attendances_count' => function ($query) {
