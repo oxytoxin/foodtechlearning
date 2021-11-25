@@ -59,18 +59,19 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-Route::middleware(['auth','role:student'])->prefix('student')->name('student.')->group(function () {
-//    Route::get('dashboard',\App\Http\Livewire\Student\StudentDashboard::class)->name('dashboard');
+Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
+    //    Route::get('dashboard',\App\Http\Livewire\Student\StudentDashboard::class)->name('dashboard');
     Route::get('courses', \App\Http\Livewire\Student\StudentCoursesIndex::class)->name('courses');
     Route::get('gradebook', \App\Http\Livewire\Student\StudentGradebook::class)->name('gradebook');
     Route::get('course/{course}', \App\Http\Livewire\Student\StudentCourseView::class)->name('course.lessons');
     Route::get('lesson/{lesson}', \App\Http\Livewire\Student\StudentLessonView::class)->name('lesson.view');
     Route::get('course/{course}/tasks', \App\Http\Livewire\Student\StudentTasksIndex::class)->name('course.tasks');
     Route::get('task/{task}/answer', \App\Http\Livewire\Student\StudentTaskAnswer::class)->name('task.answer');
+    Route::get('print-grades/{course}', \App\Http\Livewire\Student\StudentPrintCourseGrades::class)->name('print_grades');
 });
 
 Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
-//    Route::get('dashboard',\App\Http\Livewire\Teacher\TeacherDashboard::class)->name('dashboard');
+    //    Route::get('dashboard',\App\Http\Livewire\Teacher\TeacherDashboard::class)->name('dashboard');
     Route::get('courses', \App\Http\Livewire\Teacher\TeacherCoursesIndex::class)->name('courses');
     Route::get('deleted-courses', \App\Http\Livewire\Teacher\TeacherDeletedCourses::class)->name('courses.deleted');
     Route::get('course/{course}/lessons/create', \App\Http\Livewire\Teacher\TeacherLessonCreate::class)->name('lessons.create');
@@ -88,6 +89,8 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::delete('course/{course}/force-delete', [\App\Http\Controllers\TeacherController::class, 'force_delete_course'])->name('course.force_delete');
     Route::get('courses/create', \App\Http\Livewire\Teacher\TeacherCoursesCreate::class)->name('courses.create');
     Route::get('gradebook', \App\Http\Livewire\Teacher\TeacherGradebook::class)->name('gradebook');
+    Route::get('print-gradebook/{course}', \App\Http\Livewire\Teacher\TeacherPrintGradebook::class)->name('print_gradebook');
+    Route::get('print-students-list/{course}', \App\Http\Livewire\Teacher\TeacherPrintStudentsList::class)->name('print_students_list');
 });
 
 Route::mediaLibrary();

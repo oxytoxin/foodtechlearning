@@ -1,36 +1,13 @@
-@section('page_title')
-    Student Gradebook
-@endsection
-
-@section('title')
-    Gradebook
-@endsection
-
-<div>
+<div class="m-4"
+     x-init="window.print()">
     <div>
-        <label class="block title-sm"
-               for="courses">Course</label>
-        <select wire:model="class"
-                name="courses"
-                id="courses">
-            @forelse ($classes as $class)
-                <option value="{{ $class->id }}">{{ $class->name }}</option>
-            @empty
-                <option value="null"
-                        disabled
-                        hidden
-                        selected>No classes available</option>
-            @endforelse
-        </select>
-        <br>
-        <a target="blank"
-           href="{{ route('student.print_grades', ['course' => $class]) }}"
-           class="inline-block mt-4 button-primary">Print Grades</a>
+        <h1 class="text-center">Grades for {{ $course->code }}-{{ $course->name }}. Section: {{ $course->section_code }}</h1>
+
         <div class="mt-8">
             @forelse ($tasks as $task_type => $type_tasks)
                 <h3 class="uppercase title">{{ Str::plural(\App\Models\TaskType::find($task_type)->name) }}</h3>
 
-                <div class="flex flex-col outline-primary">
+                <div class="flex flex-col border-2 border-black">
                     <div class="-my-2 overflow-x-auto sm:-mx-6 md:-mx-0">
                         <div class="inline-block min-w-full py-2 align-middle sm:px-6 md:px-0">
                             <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">

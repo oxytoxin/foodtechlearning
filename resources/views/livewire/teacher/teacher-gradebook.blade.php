@@ -20,6 +20,9 @@
             <a href="{{ route('teacher.course.roll_call', ['course' => $course_id]) }}"
                class="flex items-center justify-center px-16 button-danger">Roll Call</a>
         @endif
+        <a target="blank"
+           href="{{ route('teacher.print_gradebook', ['course' => $course_id]) }}"
+           class="flex items-center justify-center px-8 button-primary">Print Gradebook</a>
     </div>
 
     <div>
